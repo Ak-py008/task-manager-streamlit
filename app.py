@@ -5,8 +5,13 @@ import pickle
 import pandas as pd
 import plotly.express as px
 
-# ---------------- Storage ---------------- #
-DATA_FILE = "/mount/data/tasks_data.pkl"
+# ---------------- Storage Helpers ---------------- #
+
+DATA_DIR = "data"
+os.makedirs(DATA_DIR, exist_ok=True)
+
+DATA_FILE = os.path.join(DATA_DIR, "tasks_data.pkl")
+
 
 
 def load_data():
@@ -147,7 +152,8 @@ with tab2:
             mark_completed(today, t)
             data["regular"].pop(i)
             save_data(data)
-            st.experimental_rerun()
+            st.rerun()
+
 
     st.write("Day Tasks:")
     if s in data["daily"]:
@@ -156,7 +162,8 @@ with tab2:
                 mark_completed(today, t)
                 data["daily"][s].pop(i)
                 save_data(data)
-                st.experimental_rerun()
+                st.rerun()
+
 
 
 # ---------------- TAB 3: WEEKLY CALENDAR ---------------- #
